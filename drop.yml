@@ -1,18 +1,37 @@
+# bnnyDrop - konfiguracja dropu
+# true - tak, false - nie
+# wypadanie przedmiotów z kamienia
 drop:
+  # węgiel
   coal:
+    # szansa (nie podawaj znaku %)
     chance: 10.0
+    # wysokość Y, jaką trzeba mieć, aby przedmiot mógł wypaść
     height:
+      # minimalna
       minimum: 30
+      # maksymalna
       maximum: 150
+    # jakimi kilofami można kopać, aby przedmiot mógł wypaść
     pickaxes:
+      # drewniany kilof
       wood: true
+      # kamienny kilof
       stone: false
+      # żelazny kilof
       iron: true
+      # złoty kilof
       gold: false
+      # diamentowy kilof
       diamond: true
+    # wypadanie z rudy
     ore:
+      # czy po zniszczeniu rudy tego przedmiotu, będzie zwykły drop
       drop: false
+      # jeżeli opcja wyżej jest na false, na jaki blok ma zostać zmieniona ruda
+      # air - powietrze
       replace: stone
+  # żelazo
   iron:
     chance: 30.0
     height:
@@ -27,6 +46,7 @@ drop:
     ore:
       drop: false
       replace: stone
+  # lapis
   lapis:
     chance: 50.0
     height:
@@ -41,6 +61,7 @@ drop:
     ore:
       drop: true
       replace: stone
+  # złoto
   gold:
     chance: 1.0
     height:
@@ -55,6 +76,7 @@ drop:
     ore:
       drop: false
       replace: stone
+  # diamenty
   diamond:
     chance: 90.0
     height:
@@ -69,6 +91,7 @@ drop:
     ore:
       drop: false
       replace: stone
+  # redstone
   redstone:
     chance: 10.0
     height:
@@ -83,6 +106,7 @@ drop:
     ore:
       drop: false
       replace: stone
+  # emeraldy
   emerald:
     chance: 10.0
     height:
@@ -97,25 +121,52 @@ drop:
     ore:
       drop: false
       replace: stone
+# dodatkowe szanse
 multiplier:
+  # zaklęcie fortune - szczęście
+  # tyle, ile wpiszemy niżej, tyle punktów procentowych zostanie dodane
+  # na przykład: szansa na węgiel: 10%, a z zaklęciem szczęście 3 będzie szansa 10.3%
   fortune:
+    # poziom 1
     level-1: 0.1
+    # poziom 2
     level-2: 0.2
+    # poziom 3
     level-3: 0.3
+  # turbo drop i turbo exp
   turbo:
+    # ile razy ma być pomnożona szansa, gdy turbo drop jest włączony
     drop: 4
+    # ile razy ma być pomnożona szansa, gdy turbo exp jest włączony
     experience: 4
+  # ile punktów procentowych zostanie dodanych do szansy, jeżeli mamy uprawnienie bnnyDrop.super-drop
   super-drop: 0.1
+# ustawienia
 options:
+  # turbo drop i turbo exp
+  # da się zmienić podczas gry, wpisując /drop a następnie klikając na przedmiot reprezentujący turbo drop/exp
+  # wymagane uprawnienie: bnnyDrop.turbo.drop / bnnyDrop.turbo.experience (w zależności co chcemy aktywować)
   turbo:
+    # czy turbo drop jest włączony
     drop: 'false'
+    # czy turbo exp jest włączony
     experience: 'false'
+  # ile kulek expa dostaniemy po wykopaniu kamienia
   experience: 1
+  # w jakich światach nie działa drop
+  # każdy świat w jednej linijce, po myślniku
+  # aby drop działał w każdym świecie, zrób tak: disallowed-worlds: []
   disallowed-worlds:
   - world_the_end
+# generator stone
 generator:
+  # czy generator stone ma działać
   enable: 'false'
+  # co ile ticków ma być regenerowany kamień
+  # 20 ticków - 1 sekunda
   regeneration: 10
+  # crafting generatora stone
+  # aby dać jakiś przedmiot z nazwą, użyj np. 1 stone named "&6Super nazwa"
   crafting:
     slot-1: 1 stone
     slot-2: 1 stone
@@ -126,5 +177,10 @@ generator:
     slot-7: 1 stone
     slot-8: 1 stone
     slot-9: 1 stone
+    # ile generatorów otrzymamy po scraftowaniu
     result-number: 1
+# ile punktów potrzeba, aby móc pisać na czacie
+# można ominąć posiadając uprawnienie bnnyDrop.bypasschat
+# tyle ile nam wypadnie przedmiotów z dropu, tyle punktów otrzymujemy
+# każdy wykopany kamień daje jeden punkt
 points-chat: 10000

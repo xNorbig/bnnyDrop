@@ -1,10 +1,25 @@
+# wiadomości
+# aby wybrana wiadomość się nie wyświetlała, wystarczy zostawić wartość: ''
+# na przykład: noPermission: ''
 messages:
+  # inne
   other:
+    # przedrostek przed wiadomościami
     tag: '&bbnnyBase» '
+    # gdy nie mamy uprawnień
+    # {0} - wymagane uprawnienie
     noPermission: '&cNie masz uprawnień! &7({0})'
+    # gdy nie znaleziono podanego gracza
+    # {0} - podany gracz
     playerNotFound: '&cNie znaleziono gracza &e{0}&c!'
+    # brak odpowiedniej ilości punktów, aby pisać na czacie
+    # {0} - aktualna ilość punktów
+    # {1} - potrzebna ilośc punktów
     noPointsToChat: '&cMasz za mało punktów kopania aby pisać na czacie! ({0}/{1})'
+  # gdy wypadnie przedmiot z kamienia
+  # {0} - ilość przedmiotów (a zarazem ilość otrzymanych punktów)
   drop: '&fZnalazłeś &e{0} {1}&f. &7(+{0} punktów)'
+  # gdy wykopiemy daną rudę, choć drop z niej jest zablokowany
   ore:
     coal: '&eWęgiel &fwypada z kamienia: &e/drop&f!'
     iron: '&eŻelazo &fwypada z kamienia: &e/drop&f!'
@@ -13,7 +28,9 @@ messages:
     diamond: '&eDiament &fwypada z kamienia: &e/drop&f!'
     redstone: '&eRedstone &fwypada z kamienia: &e/drop&f!'
     emerald: '&eEmerald &fwypada z kamienia: &e/drop&f!'
+  # włączanie / wyłączanie wypadanie przedmiotów z kamienia
   item:
+    # włączone
     enabled:
       coal: '&fDrop &ewęgla &fzostał &awłączony&f.'
       iron: '&fDrop &eżelaza &fzostał &awłączony&f.'
@@ -26,6 +43,7 @@ messages:
       turbo:
         drop: '&eTurbo drop &fzostał &awłączony&f.'
         experience: '&eTurbo exp &fzostał &awłączony&f.'
+    # wyłączone
     disabled:
       coal: '&fDrop &ewęgla &fzostał &cwyłączony&f.'
       iron: '&fDrop &eżelaza &fzostał &cwyłączony&f.'
@@ -38,23 +56,40 @@ messages:
       turbo:
         drop: '&eTurbo drop &fzostał &cwyłączony&f.'
         experience: '&eTurbo exp &fzostał &cwyłączony&f.'
+# wygląd wyświetlanych menu
 gui:
+  # menu pod komendą /drop
   drop:
+    # opcje gui
     options:
+      # ilość linijek
       rows: 6
+      # tekst na górze menu
       title: 'Drop ze stone'
+   # przedmioty
     items:
+      # nagłówek
       header:
+        # slot w menu
         slot: 5
+        # przedmiot
         item: 1 enchanted book
+        # nazwa przedmiotu
         name: '&b&lDrop ze stone'
+        # opis przedmiotu
+        # każdy nowy myślnik to nowa linijka
         lore:
         - '&7Tutaj pokazują się'
         - '&7szanse na drop'
+      # możliwe przedmioty do wypadnięcia
       drop:
+        # węgiel
         coal:
+          # slot w menu
           slot: 20
+          # przedmiot
           item: 1 coal
+          # nazwa przedmiotu
           name: '&b&lWęgiel'
         iron:
           slot: 21
@@ -80,6 +115,17 @@ gui:
           slot: 26
           item: 1 emerald
           name: '&b&lEmerald'
+        # opis każdego przedmiotu wyżej (od coal do emerald)
+        # {0} - szansa na drop przedmiotu
+        # {1} - minimalna wysokość aby przedmiot wypadł
+        # {2} - maksymalna wysokość aby przedmiot wypadł
+        # {3} - czy drewnianym kilofem możemy zdobyć ten przedmiot
+        # {4} - czy kamiennym kilofem możemy zdobyć ten przedmiot
+        # {5} - czy żelaznym kilofem możemy zdobyć ten przedmiot
+        # {6} - czy złotym kilofem możemy zdobyć ten przedmiot
+        # {7} - czy diamentowym kilofem możemy zdobyć ten przedmiot
+        # {8} - czy drop z rudy tego przedmiotu jest włączony
+        # {9} - czy mamy włączone wypadanie tego przedmiotu z kamienia (po kliknięciu możemy wyłączyć/włączyć wypadanie)
         lore:
         - '&7» &fSzansa: &e{0}%'
         - '&7» &fWysokość Y:'
@@ -96,10 +142,16 @@ gui:
         - '&7» &fWypada ze stone: &e{9}'
         - '&7» &fKliknij, aby przełączyć wypadanie ze stone'
       special:
+        # dodatkowe punkty procentowe
         multiplier:
           slot: 38
           item: 1 enchanted book
           name: '&b&lDodatkowe punkty procentowe'
+          # {0} - ile punktów procentowych otrzymamy mając zaklęcie szczęście 1
+          # {1} - ile punktów procentowych otrzymamy mając zaklęcie szczęście 2
+          # {2} - ile punktów procentowych otrzymamy mając zaklęcie szczęście 3
+          # {3} - ile punktów procentowych otrzymamy mając uprawnienie bnnyDrop.super-drop
+          # {4} - czy otrzymamy dodatkowe punkty procentowe za posiadanie uprawnienia bnnyDrop.super-drop
           lore:
           - '&7» &fSzczęście I: &e+{0}%'
           - '&7» &fSzczęście II: &e+{1}%'
@@ -107,35 +159,48 @@ gui:
           - ''
           - '&7» &fSuper-drop: &e+{3}%'
           - '&7» &fSuper-drop aktywny: &e{4}'
+        # drop z kamienia
         stone:
           slot: 39
           item: 1 cobblestone
           name: '&b&lKamień/bruk'
           lore:
+          # {0} - ile kulek xp wypada z kamienia
+          # {1} - czy mamy włączone wypadanie bruku/kamienia z kamienia
           - '&7» &fDoświadczenie: &e{0}xp'
           - ''
           - '&7» &fWypadanie kamienia: &e{1}'
           - '&7» &fKliknij, aby przełączyć wypadanie ze stone'
         turbo:
+          # turbo drop
           drop:
             slot: 43
             item: 1 diamond pickaxe
             name: '&b&lTurbo-drop'
+            # {0} - ile razy zostanie pomnożony drop, gdy turbo drop jest włączony
+            # {1} - czy turbo drop jest włączony
             lore:
             - '&7» &fDrop &ex{0}'
             - ''
             - '&7» &fWłączony: &e{1}'
+          # turbo exp
           experience:
             slot: 44
             item: 1 xp bottle
             name: '&b&lTurbo-exp'
+            # {0} - ile razy zostanie pomnożony exp, gdy turbo exp jest włączony
+            # {1} - czy turbo exp jest włączony
             lore:
             - '&7» &fExp &ex{0}'
             - ''
             - '&7» &fWłączony: &e{1}'
+    # wartości
     booleans:
+      # tak
       true: '&atak'
+      # nie
       false: '&cnie'
+  # menu pod komendą /statystyki
   statistics:
     options:
       rows: 5
@@ -145,6 +210,7 @@ gui:
         slot: 5
         item: 1 enchanted book
         name: '&b&lStatystyki kopania'
+        # {0} - kogo statystyki przeglądamy
         lore:
         - '&7» &fStatystyki gracza &e{0}'
       drop:
@@ -176,6 +242,7 @@ gui:
           slot: 26
           item: 1 emerald
           name: '&b&lEmerald'
+        # {0} - ile zostało znalezionych sztuk danego surowca
         lore:
         - '&7» &fZnaleziono &e{0} &fsztuk'
       special:
@@ -183,15 +250,19 @@ gui:
           slot: 30
           item: 1 stone
           name: '&b&lKamień'
+          # {0} - ile już zostało wykopane kamienia
           lore:
           - '&7» &fWykopano &e{0} &fbloków'
         points:
           slot: 34
           item: 1 xp bottle
           name: '&b&lPunkty'
+          # {0} - ile ktoś posiada punktów
           lore:
           - '&7» &fPunkty: &e{0}'
+  # menu pod komendą /top10
   top10:
+    # główne menu
     mainmenu:
       options:
         rows: 5
@@ -240,9 +311,11 @@ gui:
           slot: 33
           item: 1 xp bottle
           name: '&b&lPunkty'
+    # menu z wybranymi statystykami
     topmenu:
       options:
         rows: 5
+        # tekst na górze menu (w zależności jakie statystyki przeglądamy)
         title:
           coal: 'TOP10 węgla'
           iron: 'TOP10 żelaza'
@@ -257,6 +330,7 @@ gui:
         header:
           slot: 5
           item: 1 enchanted book
+          # nazwa nagłówka (w zależności jakie statystyki przeglądamy)
           name:
             coal: '&b&lTOP10 węgla'
             iron:: '&b&lTOP10 żelaza'
@@ -267,6 +341,7 @@ gui:
             emerald: '&b&lTOP10 emeraldów'
             stone: '&b&lTOP10 kamienia'
             points: '&b&lTOP10 punktów'
+          # opis nagłówka (w zależności jakie statystyki przeglądamy)
           lore:
             coal:
             - '&7TOP 10 wykopanego węgla'
@@ -287,6 +362,7 @@ gui:
             points:
             - '&7TOP 10 punktów'
         heads:
+          # nazwy głów graczy z top10 (w zależności jakie statystyki przeglądamy)
           coal: '&b&l{0} - {1} węgla'
           iron:: '&b&l{0} - {1} żelaza'
           lapis: '&b&l{0} - {1} lapisu'
@@ -296,6 +372,8 @@ gui:
           emerald: '&b&l{0} - {1} emeraldów'
           stone: '&b&l{0} - {1} kamienia'
           points: '&b&l{0} - {1} punktów'
+        # na jakim slocie są dane miejsca
+        # w tym wypadku osoba z 1 miejsca ma w gui slot 22
         position-slots:
           1: 22
           2: 23
