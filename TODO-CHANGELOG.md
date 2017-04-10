@@ -1,9 +1,9 @@
 # bnnyDrop - TODO i changelog
 
-##Do zrobienia
+## Do zrobienia
 - komenda /bnnyDrop [reload]
 - uporz¹dkowanie kodu
 
-##Lista zmian
+## Lista zmian
 - v1.0
   - pierwsza wersja
