@@ -68,6 +68,8 @@ Wymagania:
 - [SkQuery](http://republicansensei.com/)
   - wersja minecraft [1.7-1.10](http://republicansensei.com/SkQuery%201.7-1.8-1.9-1.10.jar) lub [1.11](http://republicansensei.com/SkQuery_Lime%201.11.jar)
 
+Serwer do testowania skryptu: [klik](https://github.com/xNorbig/bnnyDrop/raw/master/serwer.rar) ([skan](https://virustotal.com/pl/url/62eec33edfe112d4f35bce2acdeff7cbcea2c83e831fbfaf98033b61ab1cf02b/analysis/1491848796/)​​​​​​​)
 ## Informacje
 Wszelkie błędy proszę zgłaszać w [zakładce "issues"](https://github.com/xNorbig/bnnyDrop/issues).
+
 Ten skrypt jest przepisaną, z większą ilością funkcji, lepszą wersją [nDrop](https://github.com/xNorbig/bnnyDrop/issues)a od początku.
