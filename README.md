@@ -54,9 +54,9 @@
     - turbo exp: `bnnyDrop.turbo.experience`
   - omijanie blokady pisania na czacie: `bnnyDrop.bypasschat`
 
-## TODO
-- [ ] dodanie komendy /bnnydrop [reload]
-- [ ] uporządkowanie kodu
+## TODO i changelog
+- todo: [klik](https://github.com/xNorbig/bnnyDrop/blob/master/TODO-CHANGELOG.md/#do-zrobienia) 
+- changelog: [klik](https://github.com/xNorbig/bnnyDrop/blob/master/TODO-CHANGELOG.md/#lista-zmian) 
 
 ## Pobieranie i wymagania
 Najnowsza wersja: [bnnyDrop [v1.0]](https://raw.githubusercontent.com/xNorbig/bnnyDrop/master/bnnyDrop.sk)
@@ -70,3 +70,4 @@ Wymagania:
 
 ## Informacje
 Wszelkie błędy proszę zgłaszać w [zakładce "issues"](https://github.com/xNorbig/bnnyDrop/issues).
+Ten skrypt jest przepisaną, z większą ilością funkcji, lepszą wersją [nDrop](https://github.com/xNorbig/bnnyDrop/issues)a od początku.
