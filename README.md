@@ -7,7 +7,7 @@
   - wybór kilofów (drewniany, kamienny, żelazny, złoty, diamentowy)
   - czy przedmiot ma wypadać także z rudy
     - jeżeli nie, zamienianie rudy na wybrany blok
-- menu:
+- menu
   - spis dropu
   - statystyki
   - top10
@@ -43,7 +43,7 @@
 	  - własne statystyki: `bnnyDrop.statistics`
 	  - kogoś statystyki: `bnnyDrop.statistics.others`
   - top10
-    - komenda: `/bnnyDrop:top10 [coal|iron|lapis|gold|diamond|redstone|emerald|stone|points]"
+    - komenda: `/bnnyDrop:top10 [coal|iron|lapis|gold|diamond|redstone|emerald|stone|points]`
     - aliasy: `/top, top10, topka`
     - uprawnienie: `bnnyDrop.top10`
 - uprawnienia
@@ -62,7 +62,7 @@
 Najnowsza wersja: [bnnyDrop [v1.0]](https://raw.githubusercontent.com/xNorbig/bnnyDrop/master/bnnyDrop.sk)
 
 Wymagania:
-- [Skript by bensku](https://github.com/bensku/Skript/releases) ([wersja (dev26b)](https://github.com/bensku/Skript/releases/download/dev26b/Skript.jar))
+- [Skript by bensku](https://github.com/bensku/Skript/releases) ([wersja dev26b](https://github.com/bensku/Skript/releases/download/dev26b/Skript.jar))
 - [WildSkript](http://republicansensei.com/)
   - wersja minecraft [1.7-1.8](http://republicansensei.com/WildSkript%201.7-1.8.jar) lub [1.9-1.11](http://republicansensei.com/WildSkript%201.9-1.10-1.11.jar)
 - [SkQuery](http://republicansensei.com/)
