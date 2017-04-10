@@ -2,7 +2,7 @@
 
 ## Do zrobienia
 - komenda /bnnyDrop [reload]
-- uporz¹dkowanie kodu
+- uporzÄ…dkowanie kodu
 
 ## Lista zmian
 - v1.0
