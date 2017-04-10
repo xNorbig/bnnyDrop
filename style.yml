@@ -1,0 +1,309 @@
+messages:
+  other:
+    tag: '&bbnnyBase» '
+    noPermission: '&cNie masz uprawnień! &7({0})'
+    playerNotFound: '&cNie znaleziono gracza &e{0}&c!'
+    noPointsToChat: '&cMasz za mało punktów kopania aby pisać na czacie! ({0}/{1})'
+  drop: '&fZnalazłeś &e{0} {1}&f. &7(+{0} punktów)'
+  ore:
+    coal: '&eWęgiel &fwypada z kamienia: &e/drop&f!'
+    iron: '&eŻelazo &fwypada z kamienia: &e/drop&f!'
+    lapis: '&eLapis &fwypada z kamienia: &e/drop&f!'
+    gold: '&eZłoto &fwypada z kamienia: &e/drop&f!'
+    diamond: '&eDiament &fwypada z kamienia: &e/drop&f!'
+    redstone: '&eRedstone &fwypada z kamienia: &e/drop&f!'
+    emerald: '&eEmerald &fwypada z kamienia: &e/drop&f!'
+  item:
+    enabled:
+      coal: '&fDrop &ewęgla &fzostał &awłączony&f.'
+      iron: '&fDrop &eżelaza &fzostał &awłączony&f.'
+      lapis: '&fDrop &elazurytu &fzostał &awłączony&f.'
+      gold: '&fDrop &ezłota &fzostał &awłączony&f.'
+      diamond: '&fDrop &ediamentu &fzostał &awłączony&f.'
+      redstone: '&fDrop &eredstone &fzostał &awłączony&f.'
+      emerald: '&fDrop &eszmaragdu &fzostał &awłączony&f.'
+      cobble-stone: '&fDrop &ecobblestone &fzostał &awłączony&f.'
+      turbo:
+        drop: '&eTurbo drop &fzostał &awłączony&f.'
+        experience: '&eTurbo exp &fzostał &awłączony&f.'
+    disabled:
+      coal: '&fDrop &ewęgla &fzostał &cwyłączony&f.'
+      iron: '&fDrop &eżelaza &fzostał &cwyłączony&f.'
+      lapis: '&fDrop &elazurytu &fzostał &cwyłączony&f.'
+      gold: '&fDrop &ezłota &fzostał &cwyłączony&f.'
+      diamond: '&fDrop &ediamentu &fzostał &cwyłączony&f.'
+      redstone: '&fDrop &eredstone kamienia &fzostał &cwyłączony&f.'
+      emerald: '&fDrop &eszmaragdu &fzostał &cwyłączony&f.'
+      cobble-stone: '&fDrop &ecobblestone &fzostał &cwyłączony&f.'
+      turbo:
+        drop: '&eTurbo drop &fzostał &cwyłączony&f.'
+        experience: '&eTurbo exp &fzostał &cwyłączony&f.'
+gui:
+  drop:
+    options:
+      rows: 6
+      title: 'Drop ze stone'
+    items:
+      header:
+        slot: 5
+        item: 1 enchanted book
+        name: '&b&lDrop ze stone'
+        lore:
+        - '&7Tutaj pokazują się'
+        - '&7szanse na drop'
+      drop:
+        coal:
+          slot: 20
+          item: 1 coal
+          name: '&b&lWęgiel'
+        iron:
+          slot: 21
+          item: 1 iron ingot
+          name: '&b&lŻelazo'
+        lapis:
+          slot: 22
+          item: 1 lapis lazuli
+          name: '&b&lLapis'
+        gold:
+          slot: 23
+          item: 1 gold ingot
+          name: '&b&lZłoto'
+        diamond:
+          slot: 24
+          item: 1 diamond
+          name: '&b&lDiament'
+        redstone:
+          slot: 25
+          item: 1 redstone
+          name: '&b&lRedstone'
+        emerald:
+          slot: 26
+          item: 1 emerald
+          name: '&b&lEmerald'
+        lore:
+        - '&7» &fSzansa: &e{0}%'
+        - '&7» &fWysokość Y:'
+        - '     &fMinimalna: &e{1}'
+        - '     &fMaksymalna: &e{2}'
+        - '&7» &fKilofy:'
+        - '     &fDrewniany: &e{3}'
+        - '     &fKamienny: &e{4}'
+        - '     &fŻelazny: &e{5}'
+        - '     &fZłoty: &e{6}'
+        - '     &fDiamentowy: &e{7}'
+        - '&7» &fWypadanie z rudy: &e{8}'
+        - ''
+        - '&7» &fWypada ze stone: &e{9}'
+        - '&7» &fKliknij, aby przełączyć wypadanie ze stone'
+      special:
+        multiplier:
+          slot: 38
+          item: 1 enchanted book
+          name: '&b&lDodatkowe punkty procentowe'
+          lore:
+          - '&7» &fSzczęście I: &e+{0}%'
+          - '&7» &fSzczęście II: &e+{1}%'
+          - '&7» &fSzczęście III: &e+{2}%'
+          - ''
+          - '&7» &fSuper-drop: &e+{3}%'
+          - '&7» &fSuper-drop aktywny: &e{4}'
+        stone:
+          slot: 39
+          item: 1 cobblestone
+          name: '&b&lKamień/bruk'
+          lore:
+          - '&7» &fDoświadczenie: &e{0}xp'
+          - ''
+          - '&7» &fWypadanie kamienia: &e{1}'
+          - '&7» &fKliknij, aby przełączyć wypadanie ze stone'
+        turbo:
+          drop:
+            slot: 43
+            item: 1 diamond pickaxe
+            name: '&b&lTurbo-drop'
+            lore:
+            - '&7» &fDrop &ex{0}'
+            - ''
+            - '&7» &fWłączony: &e{1}'
+          experience:
+            slot: 44
+            item: 1 xp bottle
+            name: '&b&lTurbo-exp'
+            lore:
+            - '&7» &fExp &ex{0}'
+            - ''
+            - '&7» &fWłączony: &e{1}'
+    booleans:
+      true: '&atak'
+      false: '&cnie'
+  statistics:
+    options:
+      rows: 5
+      title: 'Statystyki kopania'
+    items:
+      header:
+        slot: 5
+        item: 1 enchanted book
+        name: '&b&lStatystyki kopania'
+        lore:
+        - '&7» &fStatystyki gracza &e{0}'
+      drop:
+        coal:
+          slot: 20
+          item: 1 coal
+          name: '&b&lWęgiel'
+        iron:
+          slot: 21
+          item: 1 iron ingot
+          name: '&b&lŻelazo'
+        lapis:
+          slot: 22
+          item: 1 lapis lazuli
+          name: '&b&lLapis'
+        gold:
+          slot: 23
+          item: 1 gold ingot
+          name: '&b&lZłoto'
+        diamond:
+          slot: 24
+          item: 1 diamond
+          name: '&b&lDiament'
+        redstone:
+          slot: 25
+          item: 1 redstone
+          name: '&b&lRedstone'
+        emerald:
+          slot: 26
+          item: 1 emerald
+          name: '&b&lEmerald'
+        lore:
+        - '&7» &fZnaleziono &e{0} &fsztuk'
+      special:
+        stone:
+          slot: 30
+          item: 1 stone
+          name: '&b&lKamień'
+          lore:
+          - '&7» &fWykopano &e{0} &fbloków'
+        points:
+          slot: 34
+          item: 1 xp bottle
+          name: '&b&lPunkty'
+          lore:
+          - '&7» &fPunkty: &e{0}'
+  top10:
+    mainmenu:
+      options:
+        rows: 5
+        title: 'TOP10 statystyk'
+      items:
+        header:
+          slot: 5
+          item: 1 enchanted book
+          name: '&b&lTOP10 kopania'
+          lore:
+          - '&7Podgląd TOP10'
+          - '&7wybranych statystyk'
+        coal:
+          slot: 20
+          item: 1 coal
+          name: '&b&lWęgiel'
+        iron:
+          slot: 21
+          item: 1 iron ingot
+          name: '&b&lŻelazo'
+        lapis:
+          slot: 22
+          item: 1 lapis lazuli
+          name: '&b&lLapis'
+        gold:
+          slot: 23
+          item: 1 gold ingot
+          name: '&b&lZłoto'
+        diamond:
+          slot: 24
+          item: 1 diamond
+          name: '&b&lDiament'
+        redstone:
+          slot: 25
+          item: 1 redstone
+          name: '&b&lRedstone'
+        emerald:
+          slot: 26
+          item: 1 emerald
+          name: '&b&lEmerald'
+        stone:
+          slot: 31
+          item: 1 stone
+          name: '&b&lKamień'
+        points:
+          slot: 33
+          item: 1 xp bottle
+          name: '&b&lPunkty'
+    topmenu:
+      options:
+        rows: 5
+        title:
+          coal: 'TOP10 węgla'
+          iron: 'TOP10 żelaza'
+          lapis: 'TOP10 lapisu'
+          gold: 'TOP10 złota'
+          diamond: 'TOP10 diamentów'
+          redstone: 'TOP10 redstone'
+          emerald: 'TOP10 emeraldów'
+          stone: 'TOP10 kamienia'
+          points: 'TOP10 punktów'
+      items:
+        header:
+          slot: 5
+          item: 1 enchanted book
+          name:
+            coal: '&b&lTOP10 węgla'
+            iron:: '&b&lTOP10 żelaza'
+            lapis: '&b&lTOP10 lapisu'
+            gold: '&b&lTOP10 złota'
+            diamond: '&b&lTOP10 diamentów'
+            redstone: '&b&lTOP10 redstone'
+            emerald: '&b&lTOP10 emeraldów'
+            stone: '&b&lTOP10 kamienia'
+            points: '&b&lTOP10 punktów'
+          lore:
+            coal:
+            - '&7TOP 10 wykopanego węgla'
+            iron:
+            - '&7TOP 10 wykopanego żelaza'
+            lapis:
+            - '&7TOP 10 wykopanego lapisu'
+            gold:
+            - '&7TOP 10 wykopanego złota'
+            diamond:
+            - '&7TOP 10 wykopanych diamentów'
+            redstone:
+            - '&7TOP 10 wykopanego redstone'
+            emerald:
+            - '&7TOP 10 wykopanych emeraldów'
+            stone:
+            - '&7TOP 10 wykopanego kamienia'
+            points:
+            - '&7TOP 10 punktów'
+        heads:
+          coal: '&b&l{0} - {1} węgla'
+          iron:: '&b&l{0} - {1} żelaza'
+          lapis: '&b&l{0} - {1} lapisu'
+          gold: '&b&l{0} - {1} złota'
+          diamond: '&b&l{0} - {1} diamentów'
+          redstone: '&b&l{0} - {1} redstone'
+          emerald: '&b&l{0} - {1} emeraldów'
+          stone: '&b&l{0} - {1} kamienia'
+          points: '&b&l{0} - {1} punktów'
+        position-slots:
+          1: 22
+          2: 23
+          3: 24
+          4: 29
+          5: 30
+          6: 31
+          7: 32
+          8: 33
+          9: 34
+          10: 35

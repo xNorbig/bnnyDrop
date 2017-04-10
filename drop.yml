@@ -1,0 +1,130 @@
+drop:
+  coal:
+    chance: 10.0
+    height:
+      minimum: 30
+      maximum: 150
+    pickaxes:
+      wood: true
+      stone: false
+      iron: true
+      gold: false
+      diamond: true
+    ore:
+      drop: false
+      replace: stone
+  iron:
+    chance: 30.0
+    height:
+      minimum: 10
+      maximum: 150
+    pickaxes:
+      wood: true
+      stone: true
+      iron: false
+      gold: true
+      diamond: true
+    ore:
+      drop: false
+      replace: stone
+  lapis:
+    chance: 50.0
+    height:
+      minimum: 30
+      maximum: 150
+    pickaxes:
+      wood: false
+      stone: true
+      iron: true
+      gold: true
+      diamond: true
+    ore:
+      drop: true
+      replace: stone
+  gold:
+    chance: 1.0
+    height:
+      minimum: 10
+      maximum: 150
+    pickaxes:
+      wood: true
+      stone: true
+      iron: false
+      gold: true
+      diamond: true
+    ore:
+      drop: false
+      replace: stone
+  diamond:
+    chance: 90.0
+    height:
+      minimum: 17
+      maximum: 150
+    pickaxes:
+      wood: true
+      stone: false
+      iron: true
+      gold: true
+      diamond: true
+    ore:
+      drop: false
+      replace: stone
+  redstone:
+    chance: 10.0
+    height:
+      minimum: 30
+      maximum: 150
+    pickaxes:
+      wood: true
+      stone: true
+      iron: true
+      gold: true
+      diamond: true
+    ore:
+      drop: false
+      replace: stone
+  emerald:
+    chance: 10.0
+    height:
+      minimum: 30
+      maximum: 150
+    pickaxes:
+      wood: true
+      stone: true
+      iron: true
+      gold: true
+      diamond: true
+    ore:
+      drop: false
+      replace: stone
+multiplier:
+  fortune:
+    level-1: 0.1
+    level-2: 0.2
+    level-3: 0.3
+  turbo:
+    drop: 4
+    experience: 4
+  super-drop: 0.1
+options:
+  turbo:
+    drop: 'false'
+    experience: 'false'
+  experience: 1
+  disallowed-worlds:
+  - world_the_end
+generator:
+  enable: 'false'
+  regeneration: 10
+  crafting:
+    slot-1: 1 stone
+    slot-2: 1 stone
+    slot-3: 1 stone
+    slot-4: 1 stone
+    slot-5: 1 stone
+    slot-6: 1 stone
+    slot-7: 1 stone
+    slot-8: 1 stone
+    slot-9: 1 stone
+    result-number: 1
+points-chat: 10000

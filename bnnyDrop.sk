@@ -1,0 +1,368 @@
+options:
+	directory: plugins/Skript/scripts/bnnyDrop
+function bnnyDrop_sendMessage(player: player, value: text, arg-1: text, arg-2: text):
+	set {_value} to value "messages.%{_value}%" get of "{@directory}/style.yml"
+	if {_value} is not "":
+		set {_tag} to value "messages.other.tag" get of "{@directory}/style.yml"
+		loop 3 times:
+			replace all "{%loop-number - 1%}" with "%{_arg-%loop-number%}%" in {_value}
+		send "%colored {_tag}%%colored {_value}%" to {_player}
+function bnnyDrop_checkPermission(player: player, arg-1: text, arg-2: text, notify: boolean) :: boolean:
+	if {_arg-2} is "":
+		if {_player} has permission "bnnyDrop.%{_arg-1}%" or "bnnyDrop.*":
+			return true
+	else:
+		if {_player} has permission "bnnyDrop.%{_arg-1}%" or "bnnyDrop.%{_arg-2}%" or "bnnyDrop.*":
+			return true
+	if {_notify} is true:
+		set {_message} to "bnnyDrop.%{_arg-1}%"
+		if {_arg-2} is not "":
+			set {_message} to "bnnyDrop.%{_arg-1}% / bnnyDrop.%{_arg-2}%"
+		bnnyDrop_sendMessage({_player}, "other.noPermission", "%{_message}%", "")
+	return false
+function bnnyDrop_reloadPlayer(player: player):
+	wait 1 tick
+	if value "players.%{_player}'s uuid%.nickname" get of "{@directory}/players.yml" is not set:
+		set "players.%{_player}'s uuid%.nickname" to "%{_player}%" in yaml file "{@directory}/players.yml"
+		send "[bnnyDrop] Stworzono sekcje gracza %{_player}% (%{_player}'s uuid%) w pliku bnnyDrop/players.yml" to console
+	add "coal" and "iron" and "lapis" and "gold" and "diamond" and "redstone" and "emerald" and "stone" and "points" to {_file::*}
+	loop {_file::*}:
+		if value "players.%{_player}'s uuid%.statistics.%loop-value%" get of "{@directory}/players.yml" is not set:
+			set "players.%{_player}'s uuid%.statistics.%loop-value%" to "0" in yaml file "{@directory}/players.yml"
+	delete {_file::*}
+	add "coal" and "iron" and "lapis" and "gold" and "diamond" and "redstone" and "emerald" and "cobble-stone" to {_file::*}
+	loop {_file::*}:
+		if value "players.%{_player}'s uuid%.drop.%loop-value%" get of "{@directory}/players.yml" is not set:
+			set "players.%{_player}'s uuid%.drop.%loop-value%" to "true" in yaml file "{@directory}/players.yml"
+function bnnyDrop_toggleDrop(player: player, item: text):
+	if {_item} is not "turbo.drop" or "turbo.experience":
+		set {_value} to value "players.%{_player}'s uuid%.drop.%{_item}%" get of "{@directory}/players.yml"
+		if {_value} is "true":
+			set "players.%{_player}'s uuid%.drop.%{_item}%" to "false" in "{@directory}/players.yml"
+			bnnyDrop_sendMessage({_player}, "item.disabled.%{_item}%", "", "")
+		if {_value} is "false":
+			set "players.%{_player}'s uuid%.drop.%{_item}%" to "true" in "{@directory}/players.yml"
+			bnnyDrop_sendMessage({_player}, "item.enabled.%{_item}%", "", "")
+	else:
+		if bnnyDrop_checkPermission({_player}, "%{_item}%", "", no) is true:
+			set {_value} to value "options.%{_item}%" get of "{@directory}/drop.yml"
+			if {_value} is "true":
+				set "options.%{_item}%" to "false" in "{@directory}/drop.yml"
+				bnnyDrop_sendMessage(all players, "item.disabled.%{_item}%", "", "")
+			if {_value} is "false":
+				set "options.%{_item}%" to "true" in "{@directory}/drop.yml"
+				bnnyDrop_sendMessage(all players, "item.enabled.%{_item}%", "", "")
+command /bnnyDrop:drop:
+	description: bnnyDrop» Informacje o dropie ze stone.
+	aliases: drop, kamien, kamień, stone, stown
+	trigger:
+		if bnnyDrop_checkPermission(player, "drop", "", true) is true:
+			add "coal" and "iron" and "lapis" and "gold" and "diamond" and "redstone" and "emerald" to {_items::*}
+			loop {_items::*}:
+				set {_lore::drop.%loop-value%::*} to value list "gui.drop.items.drop.lore" get of "{@directory}/style.yml"
+				add "chance" and "height.minimum" and "height.maximum" and "pickaxes.wood" and "pickaxes.stone" and "pickaxes.iron" and "pickaxes.gold" and "pickaxes.diamond" and "ore.drop" to {_items::%loop-value-1%::*}
+				loop {_items::%loop-value-1%::*}:
+					set {_item::%loop-value-1%::%loop-value-2%} to value "drop.%loop-value-1%.%loop-value-2%" get of "{@directory}/drop.yml"
+				set {_item::%loop-value-1%::drop} to value "players.%player's uuid%.drop.%loop-value-1%" get of "{@directory}/players.yml"
+				replace all "{0}" with "%{_item::%loop-value%::chance}%" in {_lore::drop.%loop-value%::*}
+				replace all "{1}" with "%{_item::%loop-value%::height.minimum}%" in {_lore::drop.%loop-value%::*}
+				replace all "{2}" with "%{_item::%loop-value%::height.maximum}%" in {_lore::drop.%loop-value%::*}
+				replace all "{3}" with "%{_item::%loop-value%::pickaxes.wood}%" in {_lore::drop.%loop-value%::*}
+				replace all "{4}" with "%{_item::%loop-value%::pickaxes.stone}%" in {_lore::drop.%loop-value%::*}
+				replace all "{5}" with "%{_item::%loop-value%::pickaxes.iron}%" in {_lore::drop.%loop-value%::*}
+				replace all "{6}" with "%{_item::%loop-value%::pickaxes.gold}%" in {_lore::drop.%loop-value%::*}
+				replace all "{7}" with "%{_item::%loop-value%::pickaxes.diamond}%" in {_lore::drop.%loop-value%::*}
+				replace all "{8}" with "%{_item::%loop-value%::ore.drop}%" in {_lore::drop.%loop-value%::*}
+				replace all "{9}" with "%{_item::%loop-value%::drop}%" in {_lore::drop.%loop-value%::*}
+				replace all "{10}" with "%{_item::%loop-value%::drop::toggle}%" in {_lore::drop.%loop-value%::*}
+				replace all "true" with value "gui.drop.booleans.true" get of "{@directory}/style.yml" in {_lore::drop.%loop-value-1%::*}
+				replace all "false" with value "gui.drop.booleans.false" get of "{@directory}/style.yml" in {_lore::drop.%loop-value-1%::*}
+				set {_lore::drop.%loop-value%} to ""
+				loop {_lore::drop.%loop-value%::*}:
+					set {_lore::drop.%loop-value-1%} to "%{_lore::drop.%loop-value-1%}%%loop-value-2%||"
+			set {_item::cobble-stone::drop} to value "players.%player's uuid%.drop.cobble-stone" get of "{@directory}/players.yml"
+			add "fortune.level-1" and "fortune.level-2" and "fortune.level-3" and "turbo.drop" and "turbo.experience" and "super-drop" to {_multipliers::*}
+			loop {_multipliers::*}:
+				set {_multiplier::%loop-value%} to value "multiplier.%loop-value%" get of "{@directory}/drop.yml"
+			set {_multiplier::turbo.drop::active} to value "options.turbo.drop" get of "{@directory}/drop.yml"
+			set {_multiplier::turbo.experience::active} to value "options.turbo.experience" get of "{@directory}/drop.yml"
+			set {_options::experience} to value "options.experience" get of "{@directory}/drop.yml"
+			add "header" and "drop.coal" and "drop.iron" and "drop.lapis" and "drop.gold" and "drop.diamond" and "drop.redstone" and "drop.emerald" and "special.multiplier" and "special.stone" and "special.turbo.drop" and "special.turbo.experience" to {_guiitems::*}
+			loop {_guiitems::*}:
+				add "slot" and "item" and "name" to {_guiitems::%loop-value-1%::*}
+				loop {_guiitems::%loop-value-1%::*}:
+					set {_guiitem::%loop-value-1%::%loop-value-2%} to value "gui.drop.items.%loop-value-1%.%loop-value-2%" get of "{@directory}/style.yml"
+			add "header" and "special.multiplier" and "special.stone" and "special.turbo.drop" and "special.turbo.experience" to {_lores::*}
+			loop {_lores::*}:
+				set {_lore::%loop-value%::*} to value list "gui.drop.items.%loop-value%.lore" get of "{@directory}/style.yml"
+				set {_lore::%loop-value%} to ""
+				if loop-value is "special.multiplier":
+					set {_hasPermission} to bnnyDrop_checkPermission(player, "super-drop", "", false)
+					replace all "{0}" with "%{_multiplier::fortune.level-1}%" in {_lore::%loop-value%::*}
+					replace all "{1}" with "%{_multiplier::fortune.level-2}%" in {_lore::%loop-value%::*}
+					replace all "{2}" with "%{_multiplier::fortune.level-3}%" in {_lore::%loop-value%::*}
+					replace all "{3}" with "%{_multiplier::super-drop}%" in {_lore::%loop-value%::*}
+					replace all "{4}" with "%{_hasPermission}%" in {_lore::%loop-value%::*}
+				if loop-value is "special.stone":
+					replace all "{0}" with "%{_options::experience}%" in {_lore::%loop-value%::*}
+					replace all "{1}" with "%{_item::cobble-stone::drop}%" in {_lore::%loop-value%::*}
+				if loop-value is "special.turbo.drop":
+					replace all "{0}" with "%{_multiplier::turbo.drop}%" in {_lore::%loop-value%::*}
+					replace all "{1}" with "%{_multiplier::turbo.drop::active}%" in {_lore::%loop-value%::*}
+				if loop-value is "special.turbo.experience":
+					replace all "{0}" with "%{_multiplier::turbo.experience}%" in {_lore::%loop-value%::*}
+					replace all "{1}" with "%{_multiplier::turbo.experience::active}%" in {_lore::%loop-value%::*}
+				replace all "true" with value "gui.drop.booleans.true" get of "{@directory}/style.yml" in {_lore::%loop-value-1%::*}
+				replace all "false" with value "gui.drop.booleans.false" get of "{@directory}/style.yml" in {_lore::%loop-value-1%::*}
+				loop {_lore::%loop-value-1%::*}:
+					set {_lore::%loop-value-1%} to "%{_lore::%loop-value-1%}%%loop-value-2%||"
+			open chest with value "gui.drop.options.rows" get of "{@directory}/style.yml" parsed as number rows named colored value "gui.drop.options.title" get of "{@directory}/style.yml" to player
+			wait 1 tick
+			format slot {_guiitem::header::slot} parsed as number-1 of player with {_guiitem::header::item} parsed as item named colored {_guiitem::header::name} with lore colored {_lore::header} to be unstealable
+			format slot {_guiitem::drop.coal::slot} parsed as number-1 of player with {_guiitem::drop.coal::item} parsed as item named colored {_guiitem::drop.coal::name} with lore colored {_lore::drop.coal} to run [bnnyDrop_toggleDrop(player, "coal")]
+			format slot {_guiitem::drop.iron::slot} parsed as number-1 of player with {_guiitem::drop.iron::item} parsed as item named colored {_guiitem::drop.iron::name} with lore colored {_lore::drop.iron} to run [bnnyDrop_toggleDrop(player, "iron")]
+			format slot {_guiitem::drop.lapis::slot} parsed as number-1 of player with {_guiitem::drop.lapis::item} parsed as item named colored {_guiitem::drop.lapis::name} with lore colored {_lore::drop.lapis} to run [bnnyDrop_toggleDrop(player, "lapis")]
+			format slot {_guiitem::drop.gold::slot} parsed as number-1 of player with {_guiitem::drop.gold::item} parsed as item named colored {_guiitem::drop.gold::name} with lore colored {_lore::drop.gold} to run [bnnyDrop_toggleDrop(player, "gold")]
+			format slot {_guiitem::drop.diamond::slot} parsed as number-1 of player with {_guiitem::drop.diamond::item} parsed as item named colored {_guiitem::drop.diamond::name} with lore colored {_lore::drop.diamond} to run [bnnyDrop_toggleDrop(player, "diamond")]
+			format slot {_guiitem::drop.redstone::slot} parsed as number-1 of player with {_guiitem::drop.redstone::item} parsed as item named colored {_guiitem::drop.redstone::name} with lore colored {_lore::drop.redstone} to run [bnnyDrop_toggleDrop(player, "redstone")]
+			format slot {_guiitem::drop.emerald::slot} parsed as number-1 of player with {_guiitem::drop.emerald::item} parsed as item named colored {_guiitem::drop.emerald::name} with lore colored {_lore::drop.emerald} to run [bnnyDrop_toggleDrop(player, "emerald")]
+			format slot {_guiitem::special.multiplier::slot} parsed as number-1 of player with {_guiitem::special.multiplier::item} parsed as item named colored {_guiitem::special.multiplier::name} with lore colored {_lore::special.multiplier} to be unstealable
+			format slot {_guiitem::special.stone::slot} parsed as number-1 of player with {_guiitem::special.stone::item} parsed as item named colored {_guiitem::special.stone::name} with lore colored {_lore::special.stone} to run [bnnyDrop_toggleDrop(player, "cobble-stone")]
+			format slot {_guiitem::special.turbo.drop::slot} parsed as number-1 of player with {_guiitem::special.turbo.drop::item} parsed as item named colored {_guiitem::special.turbo.drop::name} with lore colored {_lore::special.turbo.drop} to run [bnnyDrop_toggleDrop(player, "turbo.drop")]
+			format slot {_guiitem::special.turbo.experience::slot} parsed as number-1 of player with {_guiitem::special.turbo.experience::item} parsed as item named colored {_guiitem::special.turbo.experience::name} with lore colored {_lore::special.turbo.experience} to run [bnnyDrop_toggleDrop(player, "turbo.experience")]
+command /bnnyDrop:statistics [<text="%player%">]:
+	description: bnnyDrop» Statystyki wykopanych przedmiotów.
+	aliases: statistics, stats, statystyki, staty
+	trigger:
+		if arg 1 is "%player%":
+			if bnnyDrop_checkPermission(player, "statistics", "", true) is true:
+				set {_hasPermission} to bnnyDrop_checkPermission(player, "statistics.others", "", false)
+				set {_player} to player
+		else:
+			if bnnyDrop_checkPermission(player, "statistics.others", "", true) is true:
+				set {_player} to arg 1 parsed as offlineplayer
+				if value "players.%{_player}'s uuid%.nickname" get of "{@directory}/players.yml" is not set:
+					bnnyDrop_sendMessage(player, "other.playerNotFound", "%{_player}%", "")
+					set {_hasPermission} to bnnyDrop_checkPermission(player, "statistics.others", "", false)
+		if {_hasPermission} is true:
+			add "coal" and "iron" and "lapis" and "gold" and "diamond" and "redstone" and "emerald" and "stone" and "points" to {_items::*}
+			loop {_items::*}:
+				set {_lore::%loop-value%::*} to value list "gui.statistics.items.drop.lore" get of "{@directory}/style.yml"
+				set {_item::%loop-value%} to value "players.%player's uuid%.statistics.%loop-value%" get of "{@directory}/players.yml" parsed as number
+				replace all "{0}" with "%{_item::%loop-value%}%" in {_lore::%loop-value%::*}
+				set {_lore::%loop-value%} to ""
+				loop {_lore::%loop-value%::*}:
+					set {_lore::%loop-value-1%} to "%{_lore::%loop-value-1%}%%loop-value-2%||"
+			add "header" and "drop.coal" and "drop.iron" and "drop.lapis" and "drop.gold" and "drop.diamond" and "drop.redstone" and "drop.emerald" and "special.stone" and "special.points" to {_guiitems::*}
+			loop {_guiitems::*}:
+				add "slot" and "item" and "name" to {_guiitems::%loop-value-1%::*}
+				loop {_guiitems::%loop-value-1%::*}:
+					set {_guiitem::%loop-value-1%::%loop-value-2%} to value "gui.statistics.items.%loop-value-1%.%loop-value-2%" get of "{@directory}/style.yml"
+			add "header" and "special.stone" and "special.points" to {_lores::*}
+			loop {_lores::*}:
+				set {_lore::%loop-value%::*} to value list "gui.statistics.items.%loop-value%.lore" get of "{@directory}/style.yml"
+				set {_lore::%loop-value%} to ""
+				if loop-value is "header":
+					replace all "{0}" with "%{_player}%" in {_lore::%loop-value%::*}
+				if loop-value is "special.stone":
+					replace all "{0}" with "%{_item::stone}%" in {_lore::%loop-value%::*}
+				if loop-value is "special.points":
+					replace all "{0}" with "%{_item::points}%" in {_lore::%loop-value%::*}
+				loop {_lore::%loop-value-1%::*}:
+					set {_lore::%loop-value-1%} to "%{_lore::%loop-value-1%}%%loop-value-2%||"
+			open chest with value "gui.statistics.options.rows" get of "{@directory}/style.yml" parsed as number rows named colored value "gui.statistics.options.title" get of "{@directory}/style.yml" to player
+			wait 1 tick
+			format slot {_guiitem::header::slot} parsed as number-1 of player with {_guiitem::header::item} parsed as item named colored {_guiitem::header::name} with lore colored {_lore::header} to be unstealable
+			format slot {_guiitem::drop.coal::slot} parsed as number-1 of player with {_guiitem::drop.coal::item} parsed as item named colored {_guiitem::drop.coal::name} with lore colored {_lore::coal} to be unstealable
+			format slot {_guiitem::drop.iron::slot} parsed as number-1 of player with {_guiitem::drop.iron::item} parsed as item named colored {_guiitem::drop.iron::name} with lore colored {_lore::iron} to be unstealable
+			format slot {_guiitem::drop.lapis::slot} parsed as number-1 of player with {_guiitem::drop.lapis::item} parsed as item named colored {_guiitem::drop.lapis::name} with lore colored {_lore::lapis} to be unstealable
+			format slot {_guiitem::drop.gold::slot} parsed as number-1 of player with {_guiitem::drop.gold::item} parsed as item named colored {_guiitem::drop.gold::name} with lore colored {_lore::gold} to be unstealable
+			format slot {_guiitem::drop.diamond::slot} parsed as number-1 of player with {_guiitem::drop.diamond::item} parsed as item named colored {_guiitem::drop.diamond::name} with lore colored {_lore::diamond} to be unstealable
+			format slot {_guiitem::drop.redstone::slot} parsed as number-1 of player with {_guiitem::drop.redstone::item} parsed as item named colored {_guiitem::drop.redstone::name} with lore colored {_lore::redstone} to be unstealable
+			format slot {_guiitem::drop.emerald::slot} parsed as number-1 of player with {_guiitem::drop.emerald::item} parsed as item named colored {_guiitem::drop.emerald::name} with lore colored {_lore::emerald} to be unstealable
+			format slot {_guiitem::special.stone::slot} parsed as number-1 of player with {_guiitem::special.stone::item} parsed as item named colored {_guiitem::special.stone::name} with lore colored {_lore::special.stone} to be unstealable
+			format slot {_guiitem::special.points::slot} parsed as number-1 of player with {_guiitem::special.points::item} parsed as item named colored {_guiitem::special.points::name} with lore colored {_lore::special.points} to be unstealable
+command /bnnyDrop:top10 [<text="help">]:
+	description: bnnyDrop» Top10 surowców/poziomów/wykopanego kamienia.
+	aliases: top, top10, topka
+	trigger:
+		if bnnyDrop_checkPermission(player, "top10", "", true) is true:
+			if arg 1 is not "coal" or "iron" or "lapis" or "gold" or "diamond" or "redstone" or "emerald" or "stone" or "points":
+				add "header" and "coal" and "iron" and "lapis" and "gold" and "diamond" and "redstone" and "emerald" and "stone" and "points" to {_guiitems::*}
+				loop {_guiitems::*}:
+					add "slot" and "item" and "name" to {_guiitems::%loop-value%::*}
+					loop {_guiitems::%loop-value%::*}:
+						set {_guiitem::%loop-value-1%::%loop-value-2%} to value "gui.top10.mainmenu.items.%loop-value-1%.%loop-value-2%" get of "{@directory}/style.yml"
+				add "header" to {_lores::*}
+				loop {_lores::*}:
+					set {_lore::%loop-value%::*} to value list "gui.top10.mainmenu.items.%loop-value%.lore" get of "{@directory}/style.yml"
+					set {_lore::%loop-value%} to ""
+					loop {_lore::%loop-value-1%::*}:
+						set {_lore::%loop-value-1%} to "%{_lore::%loop-value-1%}%%loop-value-2%||"
+				open chest with value "gui.top10.mainmenu.options.rows" get of "{@directory}/style.yml" parsed as number rows named colored value "gui.top10.mainmenu.options.title" get of "{@directory}/style.yml" to player
+				wait 1 tick
+				format slot {_guiitem::header::slot} parsed as number-1 of player with {_guiitem::header::item} parsed as item named colored {_guiitem::header::name} to be unstealable
+				format slot {_guiitem::coal::slot} parsed as number-1 of player with {_guiitem::coal::item} parsed as item named colored {_guiitem::coal::name} to run [execute player command "bnnyDrop:top10 coal"]
+				format slot {_guiitem::iron::slot} parsed as number-1 of player with {_guiitem::iron::item} parsed as item named colored {_guiitem::iron::name} to run [execute player command "bnnyDrop:top10 iron"]
+				format slot {_guiitem::lapis::slot} parsed as number-1 of player with {_guiitem::lapis::item} parsed as item named colored {_guiitem::lapis::name} to run [execute player command "bnnyDrop:top10 lapis"]
+				format slot {_guiitem::gold::slot} parsed as number-1 of player with {_guiitem::gold::item} parsed as item named colored {_guiitem::gold::name} to run [execute player command "bnnyDrop:top10 gold"]
+				format slot {_guiitem::diamond::slot} parsed as number-1 of player with {_guiitem::diamond::item} parsed as item named colored {_guiitem::diamond::name} to run [execute player command "bnnyDrop:top10 diamond"]
+				format slot {_guiitem::redstone::slot} parsed as number-1 of player with {_guiitem::redstone::item} parsed as item named colored {_guiitem::redstone::name} to run [execute player command "bnnyDrop:top10 redstone"]
+				format slot {_guiitem::emerald::slot} parsed as number-1 of player with {_guiitem::emerald::item} parsed as item named colored {_guiitem::emerald::name} to run [execute player command "bnnyDrop:top10 emerald"]
+				format slot {_guiitem::stone::slot} parsed as number-1 of player with {_guiitem::stone::item} parsed as item named colored {_guiitem::stone::name} to run [execute player command "bnnyDrop:top10 stone"]
+				format slot {_guiitem::points::slot} parsed as number-1 of player with {_guiitem::points::item} parsed as item named colored {_guiitem::points::name} to run [execute player command "bnnyDrop:top10 points"]
+			else:
+				set {_guiitem::header::slot} to value "gui.top10.topmenu.items.header.slot" get of "{@directory}/style.yml"
+				set {_guiitem::header::item} to value "gui.top10.topmenu.items.header.item" get of "{@directory}/style.yml"
+				set {_guiitem::header::name} to value "gui.top10.topmenu.items.header.name.%arg 1%" get of "{@directory}/style.yml"
+				set {_guiitem::header::lore::*} to value list "gui.top10.topmenu.items.header.lore.%arg 1%" get of "{@directory}/style.yml"
+				set {_guiitem::header::lore} to ""
+				loop {_guiitem::header::lore::*}:
+					set {_guiitem::header::lore} to "%{_guiitem::header::lore}%%loop-value%||"
+				open chest with value "gui.top10.topmenu.options.rows" get of "{@directory}/style.yml" parsed as number rows named colored value "gui.top10.topmenu.options.title.%arg 1%" get of "{@directory}/style.yml" to player
+				wait 1 tick
+				format slot {_guiitem::header::slot} parsed as number-1 of player with {_guiitem::header::item} parsed as item named colored {_guiitem::header::name} to be unstealable
+				set {_players::*} to configuration section "players" get of "{@directory}/players.yml"
+				loop {_players::*}:
+					set {_player::%loop-value%::value} to value "players.%loop-value%.statistics.%arg 1%" get of "{@directory}/players.yml" parsed as number
+					set {_player::%loop-value%::nickname} to value "players.%loop-value%.nickname" get of "{@directory}/players.yml"
+					set {_top::list::%loop-value%} to {_player::%loop-value%::value}
+					set {_top::list::%loop-value%} to {_player::%loop-value%::value}
+				set {_top::size} to size of {_top::list::*}
+				loop {_top::size} times:
+					loop {_top::list::*}:
+						if {_value::%loop-number%} is not set:
+							set {_value::%loop-number%} to loop-value-2
+							set {_nickname::%loop-number%} to loop-index
+						if loop-value-2 is more than {_value::%loop-number%}:
+							set {_value::%loop-number%} to loop-value-2
+							set {_nickname::%loop-number%} to loop-index
+						set {_nickname::%loop-number%} to value "players.%loop-value-2%.nickname" get of "{@directory}/players.yml"
+					remove {_value::%loop-number%} from {_top::list::*}
+					if loop-number <= {_top::size}:
+						set {_guiitem::%loop-number%::slot} to value "gui.top10.topmenu.items.position-slots.%loop-number%" get of "{@directory}/style.yml"
+						set {_guiitem::%loop-number%::name} to value "gui.top10.topmenu.items.heads.%arg 1%" get of "{@directory}/style.yml"
+						replace all "{0}" with "%{_player::%{_nickname::%loop-number%}%::nickname}%" in {_guiitem::%loop-number%::name}
+						replace all "{1}" with "%{_value::%loop-number%}%" in {_guiitem::%loop-number%::name}
+						format slot {_guiitem::%loop-number%::slot} parsed as number - 1 of player with loop-number of {_player::%{_nickname::%loop-number%}%::nickname} parsed as offlineplayer's skull named colored {_guiitem::%loop-number%::name} to be unstealable
+on skript load:
+	send "[bnnyDrop] Ladowanie bnnyDrop v1.0" to console
+	send "[bnnyDrop] Autor: xNorbi - https://skript.pl/profil/43-norbi/" to console
+on script load:
+	loop all players:
+		bnnyDrop_reloadPlayer(loop-player)
+	add "drop" and "style" and "players" to {_file::*}
+	loop {_files::*}:
+		if file "{@directory}/%loop-value%.yml" doesn't exists:
+			create file "{@directory}/%loop-value%.yml"
+			download from "https://raw.githubusercontent.com/norbi002/bnnyDrop/master/%loop-value%.yml" to "{@directory}/%loop-value%.yml"
+	if value "generator.enable" get of "{@directory}/drop.yml" is "true":
+		set {_generator::crafting::result} to value "generator.crafting.result-number" get of "{@directory}/drop.yml" parsed as number
+		loop 9 times:
+			set {_generator::crafting::slot-%loop-number%} to value "generator.crafting.slot-%loop-number%" get of "{@directory}/drop.yml" parsed as item
+		new Recipe "bnnyDrop-Generator";
+		loop 9 times:
+			"bnnyDrop-Generator".Recipe.registerIngredient{loop-number, {_generator::crafting::slot-%loop-number%}}
+		"bnnyDrop-Generator".Recipe.registerResult{{_generator::crafting::result} of end stone}
+		"bnnyDrop-Generator".Recipe.register{}
+on mine of coal ore or iron ore or lapis lazuli ore or gold ore or diamond ore or redstone ore or emerald ore:
+	set {_ore::block} to "%event-block%"
+	replace all " ore" and "active " and " lazuli" with "" in {_ore::block}
+	if value "drop.%{_ore::block}%.ore.drop" get of "{@directory}/drop.yml" is "false":
+		cancel event
+		set {_ore::replace} to value "drop.%{_ore::block}%.ore.replace" get of "{@directory}/drop.yml" parsed as item
+		bnnyDrop_sendMessage(player, "ore.%{_ore::block}%", "", "")
+		set event-block to {_ore::replace}
+on mine of stone or cobblestone:
+	if value "players.%player's uuid%.drop.cobble-stone" get of "{@directory}/players.yml" is "false":
+		create file "{@directory}/DROP_COBBLE_OFF.bnnyDrop"
+on break of stone:
+	player's gamemode is survival
+	if value "generator.enable" get of "{@directory}/drop.yml" is "true":
+		set {_generator::%event-location%} to event-location
+		loop value "generator.regeneration" get of "{@directory}/drop.yml" parsed as number times:
+			wait 1 tick
+		if block under {_generator::%event-location%} is end stone:
+			if block at {_generator::%event-location%} is air:
+				set block at {_generator::%event-location%} to stone
+	set {_worlds::*} to value list "options.disallowed-world" get of "{@directory}/drop.yml"
+	loop {_worlds::*}:
+		if player is in world loop-value:
+			stop
+	add "fortune.level-1" and "fortune.level-2" and "fortune.level-3" and "turbo.drop" and "turbo.experience" and "super-drop" to {_multipliers::*}
+	loop {_multipliers::*}:
+		set {_multiplier::%loop-value%} to value "multiplier.%loop-value%" get of "{@directory}/drop.yml" parsed as number
+	set {_multiplier::turbo.drop::active} to value "options.turbo.drop" get of "{@directory}/drop.yml"
+	set {_multiplier::turbo.experience::active} to value "options.turbo.experience" get of "{@directory}/drop.yml"
+	set {_options::experience} to value "options.experience" get of "{@directory}/drop.yml" parsed as number
+	if {_multiplier::turbo.experience::active} is "true":
+		set {_options::experience} to {_multiplier::turbo.experience} * {_options::experience}
+	loop {_options::experience} times:
+		give 1 exp to player
+	add "coal" and "iron" and "lapis" and "gold" and "diamond" and "redstone" and "emerald" to {_items::*}
+	loop {_items::*}:
+		add "chance" and "height.minimum" and "height.maximum" and "pickaxes.wood" and "pickaxes.stone" and "pickaxes.iron" and "pickaxes.gold" and "pickaxes.diamond" to {_items::%loop-value-1%::*}
+		loop {_items::%loop-value-1%::*}:
+			set {_item::%loop-value-1%::%loop-value-2%} to value "drop.%loop-value-1%.%loop-value-2%" get of "{@directory}/drop.yml"
+		set {_item::%loop-value-1%::drop} to value "players.%player's uuid%.drop.%loop-value-1%" get of "{@directory}/players.yml"
+		set {_item::chance} to {_item::%loop-value%::chance} parsed as number
+		set {_item::amount} to 1
+		if player's tool is any pickaxe of fortune 1:
+			set {_fortune::level} to 1
+		if player's tool is any pickaxe of fortune 2:
+			set {_fortune::level} to 2
+		if player's tool is any pickaxe of fortune 3:
+			set {_fortune::level} to 3
+		if {_fortune::level} is set:
+			add {_fortune::level} to {_item::amount}
+		if bnnyDrop_checkPermission(player, "super-drop", "", no) is true:
+			add {_multiplier::super-drop} to {_item::chance}
+		if {_multiplier::turbo.drop::active} is "true":
+			set {_item::chance} to {_item::chance} * {_multiplier::turbo.drop}
+		if player's tool is any pickaxe of silk touch 1:
+			set {_item::amount} to 0
+		chance of {_item::chance}%:
+			y-coordinate of event-block is bigger or equal to {_item::%loop-value%::height.minimum} parsed as number
+			y-coordinate of event-block is smaller or equal to {_item::%loop-value%::height.maximum} parsed as number
+			set {_tool} to "%type of player's tool%"
+			replace all "_pickaxe" and "en" with "" in {_tool}
+			if {_item::%loop-value%::pickaxes.%{_tool}%} is "true":
+				if value "players.%player's uuid%.drop.%loop-value%" get of "{@directory}/players.yml" is "true":
+					if {_item::amount} is bigger or equal to 1:
+						set {_item::amount} to random integer between 1 and {_item::amount}
+						set {_item::item} to "%loop-value%"
+						replace all "iron" with "iron ingot" in {_item::item}
+						replace all "lapis" with "lapis lazuli" in {_item::item}
+						replace all "gold" with "gold ingot" in {_item::item}
+					else:
+						set {_item::amount} to 1
+						set {_item::item} to "%loop-value% ore"
+					bnnyDrop_sendMessage(player, "drop", "%{_item::amount}%", "%{_item::item}%")
+					set {_statistics::%loop-value%} to value "players.%player's uuid%.statistics.%loop-value%" get of "{@directory}/players.yml" parsed as number
+					set {_statistics::stone} to value "players.%player's uuid%.statistics.stone" get of "{@directory}/players.yml" parsed as number
+					set {_statistics::points} to value "players.%player's uuid%.statistics.points" get of "{@directory}/players.yml" parsed as number
+					set "players.%player's uuid%.statistics.%loop-value%" to "%{_statistics::%loop-value%} + {_item::amount}%" in yaml file "{@directory}/players.yml"
+					set "players.%player's uuid%.statistics.stone" to "%{_statistics::stone} + 1%" in yaml file "{@directory}/players.yml"
+					set "players.%player's uuid%.statistics.points" to "%{_statistics::points} + {_item::amount} + 1%" in yaml file "{@directory}/players.yml"
+					if player can hold {_item::amount} of {_item::item} parsed as item:
+						give {_item::amount} of {_item::item} parsed as item to player
+						stop
+					else:
+						drop {_item::amount} of {_item::item} parsed as item at event-location
+						stop
+on item spawn of stone or cobblestone:
+	if file "{@directory}/DROP_COBBLE_OFF.bnnyDrop" exists:
+		cancel event
+		delete file "{@directory}/DROP_COBBLE_OFF.bnnyDrop"
+on place of end stone:
+	if value "generator.enable" get of "{@directory}/drop.yml" is "true":
+		if block at event-block is end stone:
+			if block above event-block is air:
+				set block above event-block to stone
+on chat:
+	if value "players.%player's uuid%.statistics.points" get of "{@directory}/players.yml" parsed as number is less than value "points-chat" get of "{@directory}/drop.yml" parsed as number:
+		if bnnyDrop_checkPermission(player, "bypasschat", "", no) is false:
+			cancel event
+			bnnyDrop_sendMessage(player, "other.noPointsToChat", value "players.%player's uuid%.statistics.points" get of "{@directory}/players.yml", value "points-chat" get of "{@directory}/drop.yml")
+on join:
+	bnnyDrop_reloadPlayer(player)
