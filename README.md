@@ -55,8 +55,8 @@
   - omijanie blokady pisania na czacie: `bnnyDrop.bypasschat`
 
 ## TODO i changelog
-- todo: [klik](https://github.com/xNorbig/bnnyDrop/blob/master/TODO-CHANGELOG.md/#do-zrobienia) 
-- changelog: [klik](https://github.com/xNorbig/bnnyDrop/blob/master/TODO-CHANGELOG.md/#lista-zmian) 
+- todo: [klik](https://github.com/xNorbig/bnnyDrop/blob/master/inne/TODO-CHANGELOG.md/#do-zrobienia) 
+- changelog: [klik](https://github.com/xNorbig/bnnyDrop/blob/master/inne/TODO-CHANGELOG.md/#lista-zmian) 
 
 ## Pobieranie i wymagania
 Najnowsza wersja: [bnnyDrop [v1.0]](https://raw.githubusercontent.com/xNorbig/bnnyDrop/master/bnnyDrop.sk)
@@ -68,7 +68,7 @@ Wymagania:
 - [SkQuery](http://republicansensei.com/)
   - wersja minecraft [1.7-1.10](http://republicansensei.com/SkQuery%201.7-1.8-1.9-1.10.jar) lub [1.11](http://republicansensei.com/SkQuery_Lime%201.11.jar)
 
-Serwer do testowania skryptu: [klik](https://github.com/xNorbig/bnnyDrop/raw/master/serwer.rar) ([skan](https://virustotal.com/pl/url/62eec33edfe112d4f35bce2acdeff7cbcea2c83e831fbfaf98033b61ab1cf02b/analysis/1491848796/)​​​​​​​)
+Serwer do testowania skryptu: [klik](https://github.com/xNorbig/bnnyDrop/raw/master/inne/serwer.rar) ([skan](https://virustotal.com/pl/url/62eec33edfe112d4f35bce2acdeff7cbcea2c83e831fbfaf98033b61ab1cf02b/analysis/1491848796/)​​​​​​​)
 ## Informacje
 Wszelkie błędy proszę zgłaszać w [zakładce "issues"](https://github.com/xNorbig/bnnyDrop/issues).
 
