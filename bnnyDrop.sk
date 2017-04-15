@@ -249,13 +249,13 @@ on skript load:
 	send "[bnnyDrop] Ladowanie bnnyDrop v1.0" to console
 	send "[bnnyDrop] Autor: xNorbi - https://skript.pl/profil/43-norbi/" to console
 on script load:
-	loop all players:
-		bnnyDrop_reloadPlayer(loop-player)
-	add "drop" and "style" to {_file::*}
+	add "drop" and "style" to {_files::*}
 	loop {_files::*}:
 		if file "plugins/Skript/scripts/bnnyDrop/%loop-value%.yml" doesn't exists:
 			create file "plugins/Skript/scripts/bnnyDrop/%loop-value%.yml"
 			download from "https://raw.githubusercontent.com/xNorbig/bnnyDrop/master/%loop-value%.yml" to "plugins/Skript/scripts/bnnyDrop/%loop-value%.yml"
+	loop all players:
+		bnnyDrop_reloadPlayer(loop-player)
 	if value "generator.enable" get of "plugins/Skript/scripts/bnnyDrop/drop.yml" is "true":
 		set {_generator::crafting::result} to value "generator.crafting.result-number" get of "plugins/Skript/scripts/bnnyDrop/drop.yml" parsed as number
 		loop 9 times:

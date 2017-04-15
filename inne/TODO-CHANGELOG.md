@@ -1,9 +1,11 @@
 # bnnyDrop - TODO i changelog
 
 ## Do zrobienia
-- komenda /bnnyDrop [reload]
-- uporządkowanie kodu
+* komenda /bnnyDrop [reload]
+* uporządkowanie kodu
 
 ## Lista zmian
-- v1.0
-  - pierwsza wersja
+* v1.0.1
+  * pliki się nie generowały poprawnie
+* v1.0
+  * pierwsza wersja

@@ -59,7 +59,7 @@
 - changelog: [klik](https://github.com/xNorbig/bnnyDrop/blob/master/inne/TODO-CHANGELOG.md/#lista-zmian) 
 
 ## Pobieranie i wymagania
-Najnowsza wersja: [bnnyDrop [v1.0]](https://raw.githubusercontent.com/xNorbig/bnnyDrop/master/bnnyDrop.sk)
+Pobieranie: [bnnyDrop](https://raw.githubusercontent.com/xNorbig/bnnyDrop/master/bnnyDrop.sk)
 
 Wymagania:
 - [Skript by bensku](https://github.com/bensku/Skript/releases) ([wersja dev26b](https://github.com/bensku/Skript/releases/download/dev26b/Skript.jar))
