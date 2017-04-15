@@ -5,7 +5,7 @@ messages:
   # inne
   other:
     # przedrostek przed wiadomościami
-    tag: '&bbnnyBase» '
+    tag: '&bbnnyDrop» '
     # gdy nie mamy uprawnień
     # {0} - wymagane uprawnienie
     noPermission: '&cNie masz uprawnień! &7({0})'
